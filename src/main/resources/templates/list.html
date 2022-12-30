@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body id="bc">
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	
+   	<!-- 컨텐츠 시작 -->
+   	<div id="wrapc">
+   		<div id="d0">
+	   		<span th:each="pd : ${products}" >
+	   		
+		   		<span id="d1" th:onclick="@{|location.href='/pView/${pd.pnum}'|}">
+		   			<span id="pimage">
+		   			<img src="image/moko.png" width="230" height="200">	
+		   			</span><!--
+	   			 --><span id="pkinds">  
+		   			남성 구두
+		   			</span><!--
+		   			--><span id="pname" th:text="${pd.pname}">
+		   			이름
+		   			</span>
+		   			<span>
+			   			<span id="pprice" th:text="${pd.pprice}">
+			   			20,000
+			   			</span>
+			   			<span id="pprice1">
+			   			원
+			   			</span>
+		   			</span>
+		   		</span>
+		   		
+	   		</span>
+   		</div>
+   		<!-- 페이징 시작 -->
+ 		<div id="pagesu">
+ 			<div th:if="${!products.isEmpty()}">
+ 				<span class="pagination justify-content-center">
+ 					<span class="page-item" th:classappend="${page==0} ? 'invisible'">
+	 					<a class="page-link" th:href="@{|?page=${0}|}"><span>처음으로</span></a>
+	 				</span>
+	 				<span class="page-item" th:classappend="${!products.hasPrevious} ? 'disabled'">
+	 					<a class="page-link" th:href="@{|?page=${products.number-1}|}"><span>이전</span></a>
+	 				</span>
+		   			<span class="page-item" th:each="page:${#numbers.sequence(0, products.totalPages-1)}" 
+					th:if="${page >= products.number-2 and page <= products.number+2 }"
+					th:classappend="${page==products.number} ? 'active'">
+		   				<a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
+		   			</span>
+		   			<span class="page-item" th:classappend="${!products.hasNext} ? 'disabled'">
+	 					<a class="page-link" th:href="@{|?page=${products.number+1}|}"><span>다음</span></a>
+	 				</span>
+	 				<span class="page-item" th:classappend="${page==products.totalPages-1} ? 'invisible'">
+	 					<a class="page-link" th:href="@{|?page=${products.totalPages-1}|}"><span>끝으로</span></a>
+	 				</span>
+	 			</span>	
+	   		</div>
+	   	</div>
+	   	<!-- 페이징 끝 -->
+   	</div>
+   	<!-- 컨텐츠 끝 -->
+   	<!-- 푸터 시작 -->
+	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

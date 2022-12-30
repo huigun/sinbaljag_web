@@ -1,0 +1,108 @@
+
+#bc {
+	position:relative;
+	border-color:red;
+	margin:0px;
+	padding:0px;
+	height:100%;
+}
+
+html {
+	height:100%;
+	border-color:yellow;
+}
+
+#d1{
+	display:inline-block;
+	width:250px;
+	height:300px;
+	border:solid 1px;
+	border-color: #d3d3d3;
+	margin:0px -6px 5px 20px;
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
+
+#d0{
+	
+	border-color: blue;
+}
+
+
+#pimage{
+	display:inline-block;
+	width:210px;
+	height:210px;
+	border-color: blue;
+	margin:10px 10px auto 10px;
+}
+
+#pname{
+	display:inline-block;
+	width:200px;
+	height:18px;
+	border-color: blue;
+	font-family: 'Malgun Gothic';
+	font-size: 14px;
+	font-weight: bold;
+	line-height:14px;
+	float: left;
+	margin: 0 0 0 10px;
+}
+
+#pkinds{
+	display:inline-block;
+	width:200px;
+	height:20px;
+	border-color: blue;
+	font-family: 'Malgun Gothic';
+	line-height:12px;
+	font-size: 12px;
+	float: left;
+	margin: 0 0 0 10px;
+}
+
+#pprice{
+	display:inline-block;
+	width:100px;
+	height:20px;
+	border-color: blue;
+	margin:10px 0 0 120px;
+	font-family: 'Malgun Gothic';
+	font-size: 23px;
+	line-height:23px;
+	text-align: right;
+	font-weight: bold;
+}
+
+#pprice1{
+	display:inline-block;
+	height:20px;
+	border-color: blue;
+	font-family: 'Malgun Gothic';
+	text-align: center;
+	margin: 0 0 0 -3px;
+}
+
+#wrap {
+	position:relative;
+ 	padding-bottom: 0px;
+}
+
+#wrapc {
+	width:1100px;
+	height:710px;
+	border:solid 1px;
+	border-color: red;
+	margin: 0px auto 10px auto;
+}
+
+#pagesu {
+	margin-top:50px;
+	height:30px;
+	text-align: center;
+	border-color: black;
+	font-family: 'Malgun Gothic';
+	font-size: 20px;
+	font-weight: bold;
+}

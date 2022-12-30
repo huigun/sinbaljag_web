@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body id="bc">
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<div class="container">
+  	<form th:action="@{/login}" method="post">
+			<div th:if="${param.error}">
+				<div class="alert alert-danger">
+					로그인 실패! 아이디와 비밀번호를 확인해 주세요.
+				</div>
+			</div>		
+			<div>
+				<label class="form-label">사용자ID</label>
+				<input type="text" name="username" class="form-control">
+			</div>
+			<div>
+				<label class="form-label">비밀번호</label>
+				<input type="password" name="password" class="form-control">
+			</div>			
+			<input type="submit" value="로그인" class="btn btn-primary my-2">
+		</form>	
+  	</div>
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	<!-- 푸터 시작 -->
+	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

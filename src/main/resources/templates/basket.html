@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body id="bc">
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<th:block th:each="bk : ${baskets}">
+  		<th:block th:text="${bk.bpnum}"></th:block>
+  	</th:block>
+  	
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	<!-- 푸터 시작 -->
+	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

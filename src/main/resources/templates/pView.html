@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body id="bc">
+
+<script th:inline="javascript">
+	var flag = [[${flag}]]
+	if(flag==1) {
+	alert('이미 등록된 제품입니다.');
+	} else if(flag==2) {
+		alert('장바구니에 추가 되었습니다.')
+	}
+</script>
+
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<span th:text="${pd.pnum}"></span>
+  	<span th:text="${pd.pname}"></span>
+  	<span th:text="${pd.psize}"></span>
+  	<span th:text="${pd.pprice}"></span>
+  	<th:block>
+  	<img id="pointer" th:src="@{/image/buy.png}" width="70" height="70" th:onclick="@{|location.href='/addBasket/${pd.pnum}'|}">
+  	<img id="pointer" th:src="@{/image/basket.png}" width="70" height="70" th:onclick="@{|location.href='/addBasket/${pd.pnum}'|}">
+  	</th:block>
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	<!-- 푸터 시작 -->
+	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="col-12" th:fragment="headerFragment">
+	
+	<header>
+	<!-- 로고 -->
+	<span id="logoc" th:onclick="@{|location.href='/home'|}">
+	<img id="logo" th:src="@{/image/logo.png}" width="260" height="100">
+	</span>
+	<!-- 로고 -->
+	
+	<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id="ulc">
+		<li>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/home'|}">메인</span>
+		</li>
+		<li>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/list'|}">주문하기</span>
+		</li>
+		<li>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/basket'|}">장바구니</span>
+		</li>
+		<li>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/board'|}">게시판</span>
+		</li>
+		<li>
+		<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAnonymous()" th:href="@{/memberJoin}" th:text="회원가입"></a></span>	
+		<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAnonymous()" th:href="@{/login}" th:text="로그인"></a></span>	    		
+    	<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃"></a></span>
+		</li>
+	</ul>
+	
+	</header>
+	<hr>
+</nav>
+</body>
+</html>
