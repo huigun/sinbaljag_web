@@ -17,51 +17,69 @@
    	<!-- 컨텐츠 시작 -->
    	<div id="wrapc">
    		<div id="d0">
-	   		<span th:each="pd : ${products}" >
-	   		
-		   		<span id="d1" th:onclick="@{|location.href='/pView/${pd.pnum}'|}">
-		   			<span id="pimage">
-		   			<img src="image/moko.png" width="230" height="200">	
-		   			</span><!--
-	   			 --><span id="pkinds">  
-		   			남성 구두
-		   			</span><!--
-		   			--><span id="pname" th:text="${pd.pname}">
-		   			이름
-		   			</span>
-		   			<span>
-			   			<span id="pprice" th:text="${pd.pprice}">
-			   			20,000
+   			<th:block th:if="${pList2.size!=0}">
+		   		<span th:each="pd : ${pList}" >
+			   		<span id="d1" th:onclick="@{|location.href='/pView/${pd.pname}'|}">
+			   			<span id="pimage2">
+			   			<img th:src="@{${pd.pimagepath}}" width="230" height="200">	
+			   			</span><!--
+		   			 -->
+		   			 <span th:if="${pd.pgender=='woman'}">
+		   			 	<span id="pgender2" th:text="여성용"></span>  
+			   			
+		   			 </span>
+		   			 <span th:unless="${pd.pgender=='woman'}">
+		   			 	<span id="pgender2" th:text="남성용"></span>
+		   			 </span><!--
+			   			--><span id="pname2" th:text="${pd.pname}">
+			   			이름
 			   			</span>
-			   			<span id="pprice1">
-			   			원
+			   			<span>
+				   			<span id="pprice2" th:text="${#numbers.formatInteger(pd.pprice, 0, 'COMMA')}">
+				   			20,000
+				   			</span>
+				   			<span id="pprice1">
+				   			원
+				   			</span>
 			   			</span>
-		   			</span>
+			   		</span>
 		   		</span>
-		   		
-	   		</span>
+	   		</th:block>
+	   		<th:block th:unless="${pList2.size!=0}">
+	   			<span class="review00">등록된 상품이 없습니다.</span>
+	   			<th:block th:if="${loginId=='admin'}">
+		 				<span class="additem link-secondary" th:text="물품추가" th:onclick="@{|location.href='addItem'|}">
+		 					물품추가
+		 				</span>
+	 				</th:block>
+	   		</th:block>
    		</div>
    		<!-- 페이징 시작 -->
  		<div id="pagesu">
- 			<div th:if="${!products.isEmpty()}">
+ 			<div th:if="${!pList.isEmpty()}">
  				<span class="pagination justify-content-center">
  					<span class="page-item" th:classappend="${page==0} ? 'invisible'">
 	 					<a class="page-link" th:href="@{|?page=${0}|}"><span>처음으로</span></a>
 	 				</span>
-	 				<span class="page-item" th:classappend="${!products.hasPrevious} ? 'disabled'">
-	 					<a class="page-link" th:href="@{|?page=${products.number-1}|}"><span>이전</span></a>
+	 				<span class="page-item" th:classappend="${!pList.hasPrevious} ? 'disabled'">
+	 					<a class="page-link" th:href="@{|?page=${pList.number-1}|}"><span>이전</span></a>
 	 				</span>
-		   			<span class="page-item" th:each="page:${#numbers.sequence(0, products.totalPages-1)}" 
-					th:if="${page >= products.number-2 and page <= products.number+2 }"
-					th:classappend="${page==products.number} ? 'active'">
+		   			<span class="page-item" th:each="page:${#numbers.sequence(0, pList.totalPages-1)}" 
+					th:if="${page >= pList.number-2 and page <= pList.number+2 }"
+					th:classappend="${page==pList.number} ? 'active'">
 		   				<a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
 		   			</span>
-		   			<span class="page-item" th:classappend="${!products.hasNext} ? 'disabled'">
-	 					<a class="page-link" th:href="@{|?page=${products.number+1}|}"><span>다음</span></a>
+		   			<span class="page-item" th:classappend="${!pList.hasNext} ? 'disabled'">
+	 					<a class="page-link" th:href="@{|?page=${pList.number+1}|}"><span>다음</span></a>
 	 				</span>
-	 				<span class="page-item" th:classappend="${page==products.totalPages-1} ? 'invisible'">
-	 					<a class="page-link" th:href="@{|?page=${products.totalPages-1}|}"><span>끝으로</span></a>
+	 				<span class="page-item" th:classappend="${page==pList.totalPages-1} ? 'invisible'">
+	 					<a class="page-link" th:href="@{|?page=${pList.totalPages-1}|}"><span>끝으로</span></a>
 	 				</span>
+	 				<th:block th:if="${loginId=='admin'}">
+		 				<span class="additem link-secondary" th:text="물품추가" th:onclick="@{|location.href='addItem'|}">
+		 					물품추가
+		 				</span>
+	 				</th:block>
 	 			</span>	
 	   		</div>
 	   	</div>

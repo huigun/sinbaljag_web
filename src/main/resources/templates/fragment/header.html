@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav class="col-12" th:fragment="headerFragment">
@@ -12,32 +13,23 @@
 	<header>
 	<!-- 로고 -->
 	<span id="logoc" th:onclick="@{|location.href='/home'|}">
-	<img id="logo" th:src="@{/image/logo.png}" width="260" height="100">
+	<img id="logo" th:src="@{/image/logo.png}" width="260" height="121">
 	</span>
 	<!-- 로고 -->
 	
-	<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id="ulc">
-		<li>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/home'|}">메인</span>
-		</li>
-		<li>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/list'|}">주문하기</span>
-		</li>
-		<li>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/basket'|}">장바구니</span>
-		</li>
-		<li>
+	<span class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id="ulc">
+			<span class="nav-link px-2 link-secondary fs1" id="fs" th:onclick="@{|location.href='/home'|}">메인 </span>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/list'|}">주문하기 </span>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/basket'|}">장바구니 </span>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/myPage'|}">마이페이지</span>
 			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/board'|}">게시판</span>
-		</li>
-		<li>
-		<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAnonymous()" th:href="@{/memberJoin}" th:text="회원가입"></a></span>	
-		<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAnonymous()" th:href="@{/login}" th:text="로그인"></a></span>	    		
-    	<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃"></a></span>
-		</li>
-	</ul>
+			
+		<span><a class="nav-link px-2 link-secondary fs2" id="login" sec:authorize="isAnonymous()" th:href="@{/login}" th:text="로그인"></a></span>	
+    	<span><a class="nav-link px-2 link-secondary fs2" id="login" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃"></a></span>
+	</span>
 	
 	</header>
-	<hr>
+	
 </nav>
 </body>
 </html>

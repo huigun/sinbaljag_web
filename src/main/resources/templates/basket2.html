@@ -15,7 +15,7 @@
 	if(bflag==1) {
 		alert('물품을 선택 해주세요.');
 	} else if(bflag==2) {
-		alert('구입 완료.');
+		alert('물품 구매 완료.');
 	}
 	
 	
@@ -173,7 +173,7 @@
   	<!-- 컨텐츠 시작 -->
   	<!-- 장바구니 헤드 시작 -->
   	<span id="b1">
- 			<span class="bt bt10">
+ 			<span class="bt bt1">
   			번호
   			</span>
   			<span class="bt bt2">
@@ -208,7 +208,7 @@
 	<!-- 장바구니 리스트 시작 -->
 	<th:block th:each="bk, i : ${baskets}">
 		
-			<span class="bt10 btt">
+			<span class="bt1 btt">
   				<th:block th:text="${i.count}">
   			</span>
   			<span class="tb00 bt2 btt">
@@ -253,7 +253,7 @@
 	  	</span>
 	  	<span class="sb004">
 	  	<input type="hidden" name="bindex" id="bindex">
-	  	<input type="image" th:src="@{/image/buyb.png}" width="90" height="68">
+	  	<input type="image" th:src="@{/image/buy.png}" width="90" height="70">
 	  	</span>
   	</form>
   	<!-- 컨텐츠 끝 -->

@@ -1,52 +1,57 @@
 package com.huigwon.sinbaljang.service;
 
-import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Service;
 
-import com.huigwon.sinbaljang.controller.Alert;
 import com.huigwon.sinbaljang.entity.Basket;
+import com.huigwon.sinbaljang.entity.PList;
 import com.huigwon.sinbaljang.entity.Product;
-import com.huigwon.sinbaljang.repository.BasketReposutory;
+import com.huigwon.sinbaljang.repository.BasketRepository;
 import com.huigwon.sinbaljang.repository.OrderRepository;
+import com.huigwon.sinbaljang.repository.PListRepository;
 
 import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BasketService {
 	
-	private final BasketReposutory basketReposutory;
-	private final OrderRepository orderRepository;
+	private final BasketRepository basketReposutory;
+	private final PListRepository pListRepository;
 	
-	public int addBasket(String pnum,String buname) {
-			List<Basket> Basket = basketReposutory.findByBpnum(pnum);
+	public int addBasket(String pname,String buname,String pSize) {
+			List<Basket> Basket = basketReposutory.findByBunameAndBpnameAndBpsize(buname, pname, pSize);
 			if(Basket.size()>0) {
 				return 1; 
-			} else {
-				Optional<Product> optProduct = orderRepository.findById(Integer.parseInt(pnum));
-				Product product = optProduct.get(); // 제품 정보를 받아옴
-				
+			} else if(Basket.size()==0) {
+				List<PList> pList = pListRepository.findByPname(pname);
 				Basket basket = new Basket(); // 새로운 장바구니를 생성
-				basket.setBpname(product.getPname()); // 제품명 입력
-				basket.setBpnum(Integer.toString(product.getPnum())); // 제품번호 입력
+				// bnum 은 시퀀스로 자동생성.
+				basket.setBpnum(Integer.toString(pList.get(0).getPnum())); // 제품번호 입력
+				basket.setBpname(pList.get(0).getPname()); // 제품명 입력
 				basket.setBuname(buname); // 장바구니 주인
-				System.out.println("1");
+				basket.setBpimage("이미지 미구현"); // 제품 이미지
+				basket.setBpprice(pList.get(0).getPprice()); // 제품 가격
+				basket.setBcount(1); // 추가 수량
+				basket.setBpsize(pSize);
 				basketReposutory.save(basket);
-				System.out.println("2");
 				return 2;
 			}
+			return 0;
 		}
 	
-	public List<Basket> showBasket( ) {
-		List<Basket> basket = basketReposutory.findAll();
-		
+	public List<Basket> showBasket(String buname) {
+		List<Basket> basket = basketReposutory.findByBunameOrderByBnumAsc(buname);
 		return basket;
 		
+	}
+	
+	public void deleteBasket(int bnum) {
+		basketReposutory.deleteById(bnum);
+	}
+	public void BDeleteBasket(String buname, String bpname, String bpsize) {
+		basketReposutory.deleteByBunameAndBpnameAndBpsize(buname, bpname, bpsize);
 	}
 }

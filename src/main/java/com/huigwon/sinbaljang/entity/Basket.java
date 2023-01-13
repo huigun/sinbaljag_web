@@ -39,4 +39,16 @@ public class Basket {
 	
 	@Column(name = "bpname")
 	private String bpname;
+	
+	@Column(name = "bpimage")
+	private String bpimage;
+	
+	@Column(name = "bpprice")
+	private int bpprice;
+	
+	@Column(name = "bcount")
+	private int bcount;
+	
+	@Column(name = "bpsize")
+	private String bpsize;
 }

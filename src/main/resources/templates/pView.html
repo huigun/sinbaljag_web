@@ -7,16 +7,31 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 </head>
 <body id="bc">
-
 <script th:inline="javascript">
-	var flag = [[${flag}]]
+	var flag = [[${flag}]];
+	var iflag = [[${iflag}]];
 	if(flag==1) {
 	alert('이미 등록된 제품입니다.');
 	} else if(flag==2) {
 		alert('장바구니에 추가 되었습니다.')
+	} else if(flag==3) {
+		alert('사이즈를 선택 해주세요.')
 	}
+	if(iflag==1){
+		alert('문의내용을 입력 해주세요.')
+	}
+	var Ssize = "";
+	
+	function ChangeValue() {
+	 var value = document.getElementById('select_value');
+	 Ssize = value.options[value.selectedIndex].value;
+	 document.getElementById("data").value=Ssize;
+	 document.getElementById("data2").value=Ssize;
+	} 
+	
 </script>
 
 <div id="wrap">
@@ -25,19 +40,202 @@
    	<!-- 헤더 끝 -->
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
-  	<span th:text="${pd.pnum}"></span>
-  	<span th:text="${pd.pname}"></span>
-  	<span th:text="${pd.psize}"></span>
-  	<span th:text="${pd.pprice}"></span>
-  	<th:block>
-  	<img id="pointer" th:src="@{/image/buy.png}" width="70" height="70" th:onclick="@{|location.href='/addBasket/${pd.pnum}'|}">
-  	<img id="pointer" th:src="@{/image/basket.png}" width="70" height="70" th:onclick="@{|location.href='/addBasket/${pd.pnum}'|}">
-  	</th:block>
+  	<div id="pview">
+  		<img th:src="@{${pd.pimagepath}}" class="bbdr_img">
+  		<span class="inf0">
+	  		<span class="inf">
+			  	<span class="ddc">
+			  		<span class="pbmenu">제품명</span>
+			  		<span th:text="${pd.pname}" class="bbdr0 bbdr01"></span>
+			  	</span>
+			  	<th:block th:if="${pd.pgender.equals('woman')}">
+				  	<span class="ddc">
+				  		<span class="pbmenu">성별</span><span th:text="여성용" class="bbdr0 bbdr04"></span>
+				  	</span>	
+				  	<span class="ddc">
+			  			<span class="bddr05 pbmenu">사이즈</span>
+			  			<select id="select_value" onchange="ChangeValue()">
+			  				<option value="none">선택</option>
+			  				<th:block th:each="psize : ${psize}">
+			  					<option th:text="${psize}"></option>
+			  				</th:block>
+			  			</select>
+			  		</span>	
+		  		</th:block>
+		  		<th:block th:unless="${pd.pgender.equals('woman')}">
+				  	<span class="ddc">
+				  		<span class="pbmenu">성별</span><span th:text="남성용" class="bbdr0 bbdr04"></span>
+				  	</span>	
+				  	<span class="ddc">
+			  			<span class="bddr05 pbmenu">사이즈</span>
+			  			<select id="select_value" onchange="ChangeValue()">
+			  				<option value="none">선택</option>
+			  				<th:block th:each="psize : ${psize}">
+			  					<option th:text="${psize}"></option>
+			  				</th:block>
+			  			</select>
+			  		</span>	
+		  		</th:block>
+			  	<span class="ddc">
+			  		<span class="pbmenu">가격</span>
+			  		<span th:text="${#numbers.formatInteger(pd.pprice, 0, 'COMMA')}+원" class="bbdr0 bbdr03"></span>
+			  	</span>	
+			  	<span class="ddc">
+			  		<span class="pbmenu">평균 별점</span>
+			  		<span th:text="${ar}+점" class="bbdr0 bbdr02"></span>
+				</span>
+		  	</span>
+		  	<span class="ddd">
+		  		<th:block>
+		  		<form th:action="@{/addBasket}" class="bdd bimage">
+		  			<input type="hidden" name="psize" id="data"/>
+		  			<input type="hidden" name="pname" th:value="${pd.pname}"/>
+		  			<input type="image" th:src="@{/image/basketb.png}" width="70" height="64">
+		  		</form>
+		  		<form th:action="@{/buyItem}" class="bdd ">
+		  			<input type="hidden" name="psize" id="data2"/>
+		  			<input type="hidden" name="pname" th:value="${pd.pname}"/>
+		  			<input type="image" th:src="@{/image/buyb.png}" width="70" height="53">
+		  		</form>
+			  	</th:block>
+			</span>
+		</span>
+	</div>
+	<div id="preview">
+	<span class="preview1" th:onclick="@{|location.href='/review'|}">구매 후기</span>
+	<span class="preview2" th:onclick="@{|location.href='/inquiry'|}">상품 문의</span>
+	<th:block th:if="${!loginId.equals('guest')}">
+	<span class="preview3" id="show">문의하기</span>
+	</th:block>
+	<hr>
+	<div class="background">
+	  <div class="window">
+	    <div class="popup">
+	    	<form th:action="@{/inquiryAdd}" class="inq">
+		    	<span class="inq00 inq1">
+		    	제품문의
+		    	</span>
+	      		<span class="inq00 inq2">
+	      		<textarea name="inquiry" class="inqta inq00" rows="3" cols="61"></textarea>
+	      		<input type="hidden" name="pname" th:value="${pd.pname}">
+	      		</span>
+	      		<span class="inq00 inq3">
+		   	 		<input type="button" class="bt1" value="취소" id="close">
+		   	 		<input type="submit" value="보내기" class="bt1">
+	   	 		</span>
+	   	 	</form>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="background2">
+	  <div class="window2">
+	    <div class="popup2">
+	    	<form th:action="@{/answerAdd}" class="inq">
+		    	<span class="inq00 inq1">
+		    	답변하기
+		    	</span>
+	      		<span class="inq00 inq2">
+	      		<textarea name="answer" class="inqta inq00" rows="3" cols="61"></textarea>
+	      		<input type="hidden" name="pname" th:value="${pd.pname}">
+	      		</span>
+	      		<span class="inq00 inq3">
+	      			<input type="hidden" id="qnummm" value="" name="qnum">
+		   	 		<input type="button" class="bt1" value="취소" id="close2">
+		   	 		<input type="submit" value="보내기" class="bt1">
+	   	 		</span>
+	   	 	</form>
+	    </div>
+	  </div>
+	</div>
+	
+	<th:block th:if="${ri==0}">
+		<span th:if="${reviews.size>0}">
+			<span class="review">
+				<th:block th:each="review : ${reviews}">
+					<span class="bdd0 bddid" th:text="${review.rmid}">아이디</span>
+					<span class="bdd0 bddr" th:text="${review.rrating}">★★★★★</span>
+					<span class="bdd0 bddd" th:text="${review.rdate}">등록일</span>
+					<th:block th:if="${review.rmid}==${loginId} or ${loginId}=='admin'">
+						<span class="bdd0 bdddx" th:text="'x'" th:onclick="@{|location.href='/reviewDel/${review.rnum}'|}"></span>
+					</th:block>	
+					<span class="bdd0 bddc" th:text="${review.rcontent}">내용</span><hr>
+				</th:block>
+			</span>
+		</span>
+		<span th:unless="${reviews.size>0}">
+			<span class="review00">등록된 후기가 없습니다.</span>
+		</span>
+	</th:block>
+	<th:block th:if="${ri==1}">
+		<span th:if="${questions.size>0}">
+			<span class="review">
+				<th:block th:each="question,i : ${questions}">
+					<div>
+						<th:block th:if="${question.qmname}==${loginId}or ${loginId}=='admin'">
+							<span class="bdd0 bddid" th:text="${question.qmname}">질문자</span>
+							<span class="bdd0 bddd" th:text="${question.qdate}">등록일</span>
+							<span class="bdd0 bdddx" th:text="'x'" th:onclick="@{|location.href='/questionDel/${question.qnum}'|}"></span>
+							<th:block th:if="${loginId}=='admin'">
+								<span th:text="${question.qnum}" class="preview4" th:id="'show'+${i.count}" th:onclick="addqnum(this)" th:value="${question.qnum}" name="bbbb">
+								</span> 
+								<!--<span th:text="${question.qnum}" class="preview3" id="show2" onclick="addqnum()" th:value="${question.qnum}"></span>-->
+								<!-- 여기 -->
+							</th:block>
+						</th:block>
+						<th:block th:unless="${question.qmname}==${loginId} or ${loginId}=='admin'">
+							<span class="bdd0 bddid" th:text="'***'">질문자</span>
+							<span class="bdd0 bddd" th:text="${question.qdate}">등록일</span>
+						</th:block>
+						<span class="bdd0 qestion" th:text="'Q . '+${question.qcontent}">질문내용</span>
+						<th:block th:if="${question.qanswer.equals('0')}">
+							<span class="bdd0 qestion" th:text="'A . '">답변</span><hr>
+						</th:block>
+						<th:block th:unless="${question.qanswer.equals('0')}">
+							<span class="bdd0 qestion" th:text="'A . '+${question.qanswer}">답변</span>
+							<span class="bdd0 bddd" th:text="${question.adate}">등록일</span><hr>
+						</th:block>
+					</div>
+				</th:block>
+			</span>
+		</span>
+		<span th:unless="${questions.size>0}">
+			<span class="review00">등록된 문의가 없습니다.</span>
+		</span>
+	</th:block>
+	</div>  	
   	<!-- 컨텐츠 끝 -->
    	</div>
    	<!-- 푸터 시작 -->
 	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 	<!-- 푸터 끝 -->
 	</div>
+	 <script>
+      function show() {
+        document.querySelector(".background").className = "background show";
+      }
+      function close() {
+        document.querySelector(".background").className = "background";
+      }
+      function show2() {
+          document.querySelector(".background2").className = "background2 show2";
+        }
+        function close2() {
+          document.querySelector(".background2").className = "background2";
+        }
+      
+      document.querySelector("#show").addEventListener("click", show);
+      //document.querySelector("#show2").addEventListener("click", show2);
+      document.querySelector("#close").addEventListener("click", close);
+      document.querySelector("#close2").addEventListener("click", close2);
+      
+    	  for(var i=1;i<=document.querySelectorAll(".preview4").length;i++){
+    		  document.querySelector("#show"+i).addEventListener("click", show2);
+    	 }
+    	 function addqnum(my) {
+    		var qnummm = my.textContent;
+      		document.getElementById("qnummm").value=qnummm;
+      		}
+      </script>
 </body>
 </html>

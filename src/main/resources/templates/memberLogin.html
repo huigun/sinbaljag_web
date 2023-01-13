@@ -16,21 +16,26 @@
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
   	<div class="container">
-  	<form th:action="@{/login}" method="post">
+  	<form th:action="@{/login}" method="post" class="loginf">
 			<div th:if="${param.error}">
 				<div class="alert alert-danger">
 					로그인 실패! 아이디와 비밀번호를 확인해 주세요.
 				</div>
-			</div>		
-			<div>
-				<label class="form-label">사용자ID</label>
-				<input type="text" name="username" class="form-control">
-			</div>
-			<div>
-				<label class="form-label">비밀번호</label>
-				<input type="password" name="password" class="form-control">
-			</div>			
-			<input type="submit" value="로그인" class="btn btn-primary my-2">
+			</div>	
+			<div class="loginf3">
+					<div>
+						<label class="form-label">사용자ID</label>
+						<input type="text" name="username" class="my-2 joinf3">
+					</div>
+					<div>
+						<label class="form-label">비밀번호</label>
+						<input type="password" name="password" class="my-2 joinf3">
+					</div>	
+					<div class="loginf4">		
+						<input type="submit" value="로그인" class="btn btn-primary my-2 lm">
+						<span><a class="btn btn-primary my-2" th:href="@{/memberJoin}" th:text="회원가입"></a></span>
+					</div>
+			</div>	
 		</form>	
   	</div>
   	<!-- 컨텐츠 끝 -->

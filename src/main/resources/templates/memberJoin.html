@@ -20,20 +20,33 @@
 				<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 					<div th:each="err:${#fields.allErrors()}" th:text="${err}"></div>
 				</div>
-			</div>		
-			<div>
-				<label class="form-label">사용자ID</label>
-				<input type="text" name="username" class="form-control" th:field="*{username}">
+			</div>	
+			<div class="joinf0">	
+				<div>
+					<label class="form-label">사용자ID</label>
+					<input type="text" name="username" class="joinf1 joinf3" th:field="*{username}">
+				</div>
+				<div>
+					<label class="form-label">비밀번호</label>
+					<input type="password" name="password" class="joinf1 joinf3" th:field="*{password}">
+				</div>
+				<div>
+					<label class="form-label joinf2">이 름</label>
+					<input type="text" name="name" class="joinf1 joinf3" th:field="*{name}">
+				</div>
+				<div>
+					<label class="form-label joinf2">주 소</label>
+					<input type="text" name="address" class="joinf1 joinf3" th:field="*{address}">
+				</div>
+				<div>
+					<label class="form-label">전화번호</label>
+					<input type="text" name="tel" class="joinf1 joinf3" th:field="*{tel}">
+				</div>
+				<div class="joinf4">
+					<input type="submit" value="회원가입" class="btn btn-primary my-2 lm">
+					<span><a class="btn btn-primary my-2" th:href="@{/login}" th:text="취소"></a></span>
+				</div>
 			</div>
-			<div>
-				<label class="form-label">비밀번호</label>
-				<input type="password" name="password" class="form-control" th:field="*{password}">
-			</div>
-			<div>
-				<label class="form-label">이름</label>
-				<input type="text" name="email" class="form-control" th:field="*{email}">
-			</div>
-			<input type="submit" value="회원가입" class="btn btn-primary my-2">
 		</form>	
   	<!-- 컨텐츠 끝 -->
    	</div>

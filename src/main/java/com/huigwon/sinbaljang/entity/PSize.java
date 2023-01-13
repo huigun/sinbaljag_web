@@ -10,26 +10,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "smember")
+@Table(name = "psizetbl")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SMember {
+public class PSize {
 	
 	@Id
-	@Column(name = "smid")
-	private String smid;
+	@Column(name = "msize")
+	private int msize;
 	
-	@Column(name = "smpw")
-	private String smpw;
-	
-	@Column(name = "smname")
-	private String smname;
-	
-	@Column(name = "smaddress")
-	private String smaddress;
-	
-	@Column(name = "smtel")
-	private String smtel;
-	
+	@Column(name = "wsize")
+	private int wsize;
 }
