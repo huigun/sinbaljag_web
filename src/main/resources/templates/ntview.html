@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>신발장</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body id="bc2">
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<form action="ntwriteOk">
+		<span class="bborder ntf2">
+		  	<span class="ntf21">
+			  	<span class="ntf0">
+			  		<span class="bborderb iib wwidth ntcont siu">
+						<span class="iib ntfs nttt2" th:text="'제목 : ' +${notice.nttitle}"></span>
+						<span class="flr" th:text="'등록일 : ' + ${notice.ntdate}">
+						</span>
+					</span>
+					<span class="bborderb2 siu iib ntft9 ntflr2">
+						<span class="siu iib ntft9" th:text="'작성자 : ' + ${notice.ntwriter}">
+						</span>
+						<span class="ntflr ntft9" th:text="'조회수 : ' + ${notice.nthit}">
+						</span>
+					</span>
+					<span class="iib wwidth ntcont">
+						<span class="iib wwidth ntc2 siu ntc9" th:text="${notice.ntcontent}"></span>
+					</span>
+					<span class="iib wwidth">
+						<span class="flr">
+							<input type="button" class="ntbtn siu" value="목록으로" th:onclick="@{|location.href='/notice'|}">
+						</span>
+					</span>
+			  	</span>
+			</span>
+		</span>
+  	</form>
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	<!-- 푸터 시작 -->
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

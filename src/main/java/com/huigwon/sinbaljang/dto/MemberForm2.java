@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class MemberForm {
+public class MemberForm2 {
 	
 	@NotEmpty(message = "아이디는 필수입력사항입니다!")
 	@Size(min = 3, message = "아이디는 3자 이상입니다.")

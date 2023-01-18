@@ -2,26 +2,160 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신발장</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 </head>
-<body id="bc">
+<body id="bc2">
 <div id="wrap">
 	<!-- 헤더 시작 -->
 	<th:block th:replace="fragment/header :: headerFragment"></th:block>
    	<!-- 헤더 끝 -->
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
-  	마이페이지 : 구매 목록(리뷰 작성기능), 내정보 수정하기 예정
+  	<span class="b1 b10">
+ 			<span class="bt bt10">
+  			번호
+  			</span>
+  			<span class="bt bt3">
+  			상품명
+  			</span>
+  			<span class="bt bt8">
+  			사이즈
+  			</span>
+  			<span class="bt bt4">
+  			가격
+  			</span>
+  			<span class="bt bt5">
+  			수량
+  			</span>
+  			<span class="bt bt6">
+  			구매일
+  			</span>
+  	</span>
+  	<span th:if="${orders.size>0}">
+	  	<span class="mpbase">
+	  		<th:block th:each="od, i : ${orders}">
+				<span class="blist">
+					<span class="bt10 btt">
+		  				<th:block th:text="${i.count}">
+		  			</span>
+		  			<span class="tb00 bt3 btt pointer" th:onclick="@{|location.href='/pView/${od.opname}'|}">
+		  			<img th:src="${od.oimage}" width="90" height="90" class="imagebg2"/>
+		  			<span th:text="${od.opname}" th:id="pname"></span>
+		  			</span>
+		  			<span class="tb00 bt8 btt">
+		  			<th:block th:text="${od.osize}"></th:block>
+		  			</span>
+		  			<span class="tb00 bt4 btt">
+		  			<th:block th:text="${#numbers.formatInteger(od.opprice, 0, 'COMMA')}+원"></th:block>
+		  			</span>
+		  			<span class="tb00 bt5 btt">
+		  			<th:block th:text="${od.ocount}+개"></th:block>
+		  			</span>
+		  			<span class="tb00 bt5 btt odt">
+		  			<th:block th:text="${od.odate.substring(0,16)}"></th:block>
+		  			</span>
+		  			<span class="rvf">
+		  				<th:block th:if="${od.orcon=='1'}">
+			  				<span class="rvinsertbtn2 siu" th:id="'show'+${i.count}">리뷰 작성완료</span>
+			  			</th:block>
+			  			<th:block th:unless="${od.orcon=='1'}">
+			  				<span class="rvinsertbtn pointer siu" th:id="'show'+${i.count}" th:onum=${od.onum} th:myname='${od.opname}' th:odnum='${i.index}' onclick="rate(this.getAttribute('myname'),this.getAttribute('odnum'),this.getAttribute('onum'))" >리뷰쓰기</span>
+			  			</th:block>
+			  			<div class="background">
+						  <div class="window">
+						    <div class="popup2">
+						    	<form th:action="@{/reviewInsert}" class="inq">
+							    	<span class="inq00 inq1">
+							    	</span>
+							    	<span class="star-rating space-x-4 mx-auto">
+							    		<input type="hidden" name="parte" value="0">
+										<input type="radio" id="5-stars" name="prate" value="5" v-model="ratings"/>
+										<label for="5-stars" class="star pr-4">★</label>
+										<input type="radio" id="4-stars" name="prate" value="4" v-model="ratings"/>
+										<label for="4-stars" class="star">★</label>
+										<input type="radio" id="3-stars" name="prate" value="3" v-model="ratings"/>
+										<label for="3-stars" class="star">★</label>
+										<input type="radio" id="2-stars" name="prate" value="2" v-model="ratings"/>
+										<label for="2-stars" class="star">★</label>
+										<input type="radio" id="1-stars" name="prate" value="1" v-model="ratings"/>
+										<label for="1-star" class="star">★</label>
+									</span>
+						      		<span class="inq00 inq2">
+						      		<textarea name="rcontent" class="inqta inq00" rows="3" cols="61" placeholder = "&nbsp;리뷰내용"></textarea>
+						      		<input type="hidden" name="onum" id="onum">
+						      		<input type="hidden" name="pname" id="pname55">
+						      		<input type="hidden" name="odnum" id="odnum">
+						      		</span>
+						      		<span class="inq00 inq3">
+							   	 		<input type="button" class="bt1" value="취소" id="close">
+							   	 		<input type="submit" value="보내기" class="bt1">
+						   	 		</span>
+						   	 	</form>
+						    </div>
+						  </div>
+						</div>
+			  		</span>	
+		  		</span>
+	  		</th:block>
+	  	</span>
+  	</span>
+  	<span th:unless="${orders.size>0}">
+  		<div class="tc">아직 구매하신 상품이 없습니다.</div>
+  	</span>
   	<!-- 컨텐츠 끝 -->
    	</div>
    	<!-- 푸터 시작 -->
-	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 	<!-- 푸터 끝 -->
 	</div>
+	<script>
+	
+	var rvflag = [[${rvflag}]];
+	if(rvflag==1) {
+	alert('리뷰 등록 완료');
+	}
+	document.querySelector("#close").addEventListener("click", close);
+      function show() {
+        document.querySelector(".background").className = "background show";
+      }
+      function close() {
+        document.querySelector(".background").className = "background";
+      }
+      var starrate;
+     // for(var i=1;i<=document.querySelectorAll(".rvinsertbtn").length+document.querySelectorAll(".rvinsertbtn2").length;i++){
+	//	  document.querySelector("#show"+i).addEventListener("click", show);
+	//	}
+      
+      function star1(){
+    	  starrate=1;
+    	  document.getElementById("prate").value=starrate;
+      }
+      function star2(){
+    	  starrate=2;
+    	  document.getElementById("prate").value=starrate;
+      }
+      function star3(){
+    	  starrate=3
+    	  document.getElementById("prate").value=starrate;
+      }
+      function star4(){
+    	  starrate=4;
+    	  document.getElementById("prate").value=starrate;
+      }
+      function star5(){
+    	  starrate=5;
+    	  document.getElementById("prate").value=starrate;
+      }
+      function rate(my,my2,my3){
+    	  show()
+    	  document.getElementById("pname55").value=my;
+    	  document.getElementById("odnum").value=my2;
+    	  document.getElementById("onum").value=my3;
+      }
+      </script>
 </body>
 </html>

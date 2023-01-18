@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>신발장</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+</head>
+<body id="bc2">
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<span class="mpf">
+	  	<span class="bborder pointer mpb" th:onclick="@{|location.href='/mypage'|}">
+		  	<span class="hmenu bbold">ORDER</span>
+		  	<span class="hmenu">구매목록</span>
+	  	</span>
+	  	<span class="bborder pointer mpb" th:onclick="@{|location.href='/infoUpdate'|}">
+		  	<span class="hmenu bbold">PROFILE</span>
+		  	<span class="hmenu">내정보</span>
+	  	</span>
+	  	<span class="bborder pointer mpb" th:onclick="@{|location.href='/mypage'|}">
+		  	<span class="hmenu bbold">WISH LIST</span>
+		  	<span class="hmenu">찜 목록</span>
+	  	</span>
+	  	<span class="bborder pointer mpb" th:onclick="@{|location.href='/mypage'|}">
+		  	<span class="hmenu bbold">MILEAGE</span>
+		  	<span class="hmenu">적릭금</span>
+	  	</span>
+	  	<span class="bborder pointer mpb" th:onclick="@{|location.href='/mypage'|}">
+		  	<span class="hmenu bbold">COUPON</span>
+		  	<span class="hmenu">쿠폰</span>
+	  	</span>
+	  	<span class="bborder pointer mpb" th:onclick="@{|location.href='/mypage'|}">
+		  	<span class="hmenu bbold">BOARD</span>
+		  	<span class="hmenu">게시글</span>
+	  	</span>
+  	</span>
+  	
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	</div>
+   	<!-- 푸터 시작 -->
+	<!-- 푸터 끝 -->
+</body>
+</html>

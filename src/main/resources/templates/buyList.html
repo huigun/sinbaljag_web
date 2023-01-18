@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>신발장</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+
+</head>
+<body id="bc">
+<script th:inline="javascript">
+	var bflag = [[${bflag}]]
+	if(bflag==5) {
+		alert('구매완료');
+	}
+	
+	function noEvent() {
+        if (event.keyCode == 116) {
+            event.keyCode= 2;
+            return false;
+        }
+        else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82))
+        {
+            return false;
+        }
+    }
+    document.onkeydown = noEvent;
+</script>
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<!-- 장바구니 헤드 시작 -->
+  		<span class="ocenter2 siu"><구매 완료></span>
+	  	<span class="iib bborder2 bpf0001 bbr">
+		  	<span class="iib bpf0 siu">
+		 			<span class="iib bpf1">
+		  			번호
+		  			</span>
+		  			<span class="iib bpf2">
+		  			상품명
+		  			</span>
+		  			<span class="iib bpf3">
+		  			사이즈
+		  			</span>
+		  			<span class="iib bpf3">
+		  			가격
+		  			</span>
+		  			<span class="iib bpf3">
+		  			수량
+		  			</span>
+		  			<span class="iib bpf3">
+		  			합계
+		  			</span>
+		  	</span>
+		  	<!-- 장바구니 헤드 끝 -->
+			<span id="bbc2">
+			<!-- 장바구니 리스트 시작 -->
+			<th:block th:each="bk, i : ${buyList}">
+				<span class="blist2 iib siu">
+					<span class="iib bpf1">
+		  				<th:block th:text="${i.count}">
+		  			</span>
+		  			<span class="iib bpf2">
+		  			<img th:src="${bk.bypimage}" width="50" height="50" class="imagebg2"/>
+		  			<th:block th:text="${bk.bypname}"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${bk.bypsize}"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${#numbers.formatInteger(bk.bypprice, 0, 'COMMA')}+원"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${bk.bycount}"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${#numbers.formatInteger(bk.bypprice*bk.bycount, 0, 'COMMA')}+원"></th:block>
+		  			</span>
+		  		</span>
+		  	</th:block>
+		  	</span>
+	  	</span>
+	  		<span class="ocenter2">
+				<span class="">
+					<span><a class="ntwbtn2 siu" th:href="@{/buyListOk}" th:text="확인"></a></span>
+				</span>
+			</span>
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	<!-- 푸터 시작 -->
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

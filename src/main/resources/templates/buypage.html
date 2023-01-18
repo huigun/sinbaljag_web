@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신발장</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
@@ -11,33 +11,12 @@
 
 </head>
 <script th:inline="javascript">
-	var bflag = [[${bflag}]]
-	if(bflag==1) {
-		alert('물품을 선택 해주세요.');
-	} else if(bflag==2) {
-		alert('물품 구매 완료.');
-	}
-	
-	
-    //체크박스 전체 선택 클릭 이벤트
-    function allChecked(target){
 
-        //전체 체크박스 버튼
-        const checkbox = document.getElementById('allCheckBox');
-
-        //전체 체크박스 버튼 체크 여부
+    	const checkbox = document.getElementById('inputinfo');
         const is_checked = checkbox.checked;
+    function allChecked(target){
+		
 
-        //전체 체크박스 제외한 모든 체크박스
-        if(is_checked){
-            //체크박스 전체 체크
-            chkAllChecked();
-        }
-
-        else{
-            //체크박스 전체 해제
-            chkAllUnChecked();
-        }
         
         var arr4 = new Array(); // 인덱스
 
@@ -163,6 +142,7 @@
     	document.getElementById('accept2').checked = false;
     }
 	
+    
 </script>
 <body id="bc">
 <div id="wrap">
@@ -172,95 +152,113 @@
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
   	<!-- 장바구니 헤드 시작 -->
-  	<span id="b1">
- 			<span class="bt bt1">
-  			번호
-  			</span>
-  			<span class="bt bt2">
-  			선택
-  			</span>
-  			<span class="bt bt3">
-  			상품명
-  			</span>
-  			<span class="bt bt8">
-  			사이즈
-  			</span>
-  			<span class="bt bt4">
-  			가격
-  			</span>
-  			<span class="bt bt5">
-  			수량
-  			</span>
-  			<span class="bt bt6">
-  			합계
-  			</span>
+  	<form th:action="buy" method="post">
+  	<span class="iib bborder bpf000 bpf001 siu bbr">
+  		<span class="iib wwidth tac mmb">
+  			<span><주문자 정보></span>
+  		</span>
+  		<span class="iib wwidth tac mmb">
+  		<span>주문자명</span>
+  		<span>
+			<input type="text" id="mname" name="mname" th:placeholder="${member.smname}">
+		</span>
+  		</span>
+  		<span class="iib wwidth tac mmb">
+  		<span>전화번호</span>
+  		<span>
+  			<input type="text" id="mtel" name="mtel" th:placeholder="${member.smtel}">
+  		</span>
+  		</span>
+  		<span class="iib wwidth tac">
+  		<span class="mmr">주소</span>
+  		<span>
+  			<input type="text" id="maddress" name="maddress" th:placeholder="${member.smaddress}">
+  		</span>
+  		</span>
+  		<span class="iib wwidth tac mmt">
+  		</span>
   	</span>
-  	<!-- 장바구니 헤드 끝 -->
-  	<span class="sb0">
-	  	<span class="sb2">
-	  	전체선택
+	  	<span class="iib bborder2 bpf000 bbr">
+		  	<span class="iib bpf0 siu">
+		 			<span class="iib bpf1">
+		  			번호
+		  			</span>
+		  			<span class="iib bpf2">
+		  			상품명
+		  			</span>
+		  			<span class="iib bpf3">
+		  			사이즈
+		  			</span>
+		  			<span class="iib bpf3">
+		  			가격
+		  			</span>
+		  			<span class="iib bpf3">
+		  			수량
+		  			</span>
+		  			<span class="iib bpf3">
+		  			합계
+		  			</span>
+		  	</span>
+		  	<!-- 장바구니 헤드 끝 -->
+			<span id="bbc2">
+			<!-- 장바구니 리스트 시작 -->
+			<th:block th:each="bk, i : ${buy}">
+				<span class="blist2 iib siu">
+					<span class="iib bpf1">
+		  				<th:block th:text="${i.count}">
+		  			</span>
+		  			<span class="">
+		  				<input class="ckb2 chk" type="checkbox" name="chk" id="chk" onclick="chkClicked()" th:value="${bk.bypprice}" checked>
+		  			</span>
+		  			<span class="iib bpf2">
+		  			<img th:src="${bk.bypimage}" width="50" height="50" class="imagebg2"/>
+		  			<th:block th:text="${bk.bypname}"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${bk.bypsize}"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${#numbers.formatInteger(bk.bypprice, 0, 'COMMA')}+원"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${bk.bycount}"></th:block>
+		  			</span>
+		  			<span class="iib bpf3">
+		  			<th:block th:text="${#numbers.formatInteger(bk.bypprice*bk.bycount, 0, 'COMMA')}+원"></th:block>
+		  			</span>
+		  		</span>
+		  	</th:block>
+		  	</span>
 	  	</span>
-	  	<span class="sb3">
-			<input type="checkbox" class="ckb" id="allCheckBox" onclick="allChecked()">
-	  	</span>
-  	</span>
-<span th:if="${baskets.size>0}" id="bbc">
-	<!-- 장바구니 리스트 시작 -->
-	<th:block th:each="bk, i : ${baskets}">
-		
-			<span class="bt1 btt">
-  				<th:block th:text="${i.count}">
-  			</span>
-  			<span class="tb00 bt2 btt">
-  				<input class="ckb chk" type="checkbox" name="chk" id="chk" onclick="chkClicked()" th:value="${bk.bpprice}">
-  			</span>
-  			<span class="tb00 bt3 btt">
-  			[이미지]
-  			<th:block th:text="${bk.bpname}"></th:block>
-  			</span>
-  			<span class="tb00 bt8 btt">
-  			<th:block th:text="${bk.bpsize}"></th:block>
-  			</span>
-  			<span class="tb00 bt4 btt">
-  			<th:block th:text="${#numbers.formatInteger(bk.bpprice, 0, 'COMMA')}+원"></th:block>
-  			</span>
-  			<span class="tb00 bt5 btt">
-  			<th:block th:text="${bk.bcount}"></th:block>
-  			</span>
-  			<span class="tb00 bt6 btt">
-  			<th:block th:text="${#numbers.formatInteger(bk.bpprice*bk.bcount, 0, 'COMMA')}+원"></th:block>
-  			</span>
-  			<span th:onclick="@{|location.href='/basketDel/${bk.bnum}'|}" class="bt7 btt">
-  			삭제
-  			</span>
-  		<br><hr>
-  	</th:block>
-  	</span>
-  	
-  	<div th:unless="${baskets.size>0}">
-  	<span class="bt00">
-  			등록된 상품이 없습니다.
-  	</span>
-  	</div>
   	<!-- 장바구니 리스트 끝 -->
-  	<form action="buy">
-  		<span class="sb">
-	  	<span>선택된 금액 =</span>
-	  	<span id="psum">0</span>
-	  	</span>
-	  	<span class="sb000">
-	  	원
-	  	</span>
-	  	<span class="sb004">
-	  	<input type="hidden" name="bindex" id="bindex">
-	  	<input type="image" th:src="@{/image/buy.png}" width="90" height="70">
+	  	<span class="iib bborder bpf0002 bbr tac">
+	  		<span class="sb222 siu">
+		  	<span>최종 금액 =</span>
+		  	<span id="psum">0</span>
+		  	</span>
+		  	<span class="sb000">
+		  	원
+		  	</span>
+		  	<span class="">
+		  	<input type="hidden" name="bindex" id="bindex">
+		  	<input type="submit" value="결제하기" class="iib siu">
+		  	</span>
 	  	</span>
   	</form>
   	<!-- 컨텐츠 끝 -->
    	</div>
    	<!-- 푸터 시작 -->
-	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 	<!-- 푸터 끝 -->
 	</div>
+	<script type="text/javascript">
+	function chkAllChecked(){
+        document.querySelectorAll(".chk").forEach(function(v, i) {
+            v.checked = true;
+        });
+    }
+	
+	chkAllChecked()
+	chkClicked()
+	</script>
 </body>
 </html>

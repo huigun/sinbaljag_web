@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>신발장</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body id="bc">
+<div id="wrap">
+	<!-- 헤더 시작 -->
+	<th:block th:replace="fragment/header :: headerFragment"></th:block>
+   	<!-- 헤더 끝 -->
+   	<div id="wrapc">
+  	<!-- 컨텐츠 시작 -->
+  	<span class="bborder ntf2">
+	  	<span class="ntf21">
+		  	<span class="ntf0 bborderb2">
+			  	<span class="nttf">
+		 			<span class="nttn tac">
+		  			번호
+		  			</span>
+		  			<span class="nttt tac">
+		  			제목
+		  			</span>
+		  			<span class="nttw tac">
+		  			작성자
+		  			</span>
+		  			<span class="nttd tac">
+		  			날짜
+		  			</span>
+		  			<span class="ntth tac">
+		  			조회수
+		  			</span>
+		  		</span>
+				  	<th:block th:if="${notice2.size!=0}">
+					  	<span th:each="nt :${notice}">
+					  		<span class="bborderb paddingb siu ntfontsize">
+								<span class="nttn tac">
+					  				<th:block th:text="${nt.ntnum}">
+					  			</span>
+					  			<span class="nttt tac">
+					  			<th:block th:if="${nt.nttitle.length>40}">
+					  				<span class="pointer" th:text="${nt.nttitle.substring(0,40)}" th:onclick="@{|location.href='/ntview/${nt.ntnum}'|}"></span>
+					  			</th:block>
+					  			<th:block th:unless="${nt.nttitle.length>40}">
+					  				<span class="pointer" th:text="${nt.nttitle}" th:onclick="@{|location.href='/ntview/${nt.ntnum}'|}"></span>
+				  				</th:block>
+				  				</span>
+				  				<span class="nttw tac">
+					  			<span th:text="${nt.ntwriter}"></span>
+				  				</span>
+				  				<span class="nttd tac">
+					  			<span th:text="${nt.ntdate.substring(0,10)}"></span>
+				  				</span>
+				  				<span class="ntth tac">
+					  			<span th:text="${nt.nthit}"></span>
+				  				</span>
+					  		</span>
+					  	</span>
+				  	</th:block>
+			  	<th:block th:unless="${notice2.size!=0}">
+				  	<span class="review00 siu">등록된 공지가 없습니다.</span>
+			  	</th:block>
+		  	</span>
+		  	<!-- 페이징 시작 -->
+		  	<div id="pagesu2">
+ 			<div th:if="${!notice.isEmpty()}">
+ 				<span class="pagination justify-content-center">
+ 					<span class="bborderr" th:classappend="${page==0} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${0}|}"><span><<</span></a>
+	 				</span>
+	 				<span class="bborderr" th:classappend="${!notice.hasPrevious} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${notice.number-1}|}"><span><</span></a>
+	 				</span>
+		   			<span class="bborderr pointer" th:each="page:${#numbers.sequence(0, notice.totalPages-1)}" 
+					th:if="${page >= notice.number-2 and page <= notice.number+2 }"
+					th:classappend="${page==notice.number} ? 'active'" >
+		   				<a class="pagebtn" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
+		   			</span>
+		   			<span class="bborderr" th:classappend="${!notice.hasNext} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${notice.number+1}|}"><span>></span></a>
+	 				</span>
+	 				<span class="bborderr" th:classappend="${page==notice.totalPages-1} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${notice.totalPages-1}|}"><span>>></span></a>
+	 				</span>
+	 			</span>	
+	   		</div>
+	   	</div>
+	   	<!-- 페이징 끝 -->
+	  	<th:block th:if="${loginId=='admin'}">
+			<span class="pointer ntwbtn siu" th:text="글쓰기" th:onclick="@{|location.href='/ntwrite'|}">
+			</span>
+		</th:block>
+		</span>
+	</span>
+  	<!-- 컨텐츠 끝 -->
+   	</div>
+   	<!-- 푸터 시작 -->
+	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
+	<!-- 푸터 끝 -->
+	</div>
+</body>
+</html>

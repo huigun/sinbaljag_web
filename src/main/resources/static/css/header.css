@@ -17,36 +17,44 @@ header {
 
 #logoc {
 	border-color:green;
-	width:346px;
 	height:110px;
 	display:block;
 	margin:auto;
 	cursor: pointer;
+	font-size: 80px;
+	text-align: center;
+	font-family: 'Hi Melody', cursive;
+	color: #c0c0c0;
+	text-shadow:3px 3px #FFE6E6,5px 5px #c0c0c0;
+	background-color: white;
 }
 
 #ulc {
+	text-align:center;
 	border-bottom:solid 1px;
-	margin-top:10px;
 	display:inline-block;
 	border-color: #c0c0c0;
 	width:100%;
+	background-color: white;
 }
 
 #fs {
 	margin-top:15px;
-	margin-right:-3px;
 	display:inline-block;
 	font-size: 22px;
 	cursor: pointer;
 	font-family: 'Hi Melody', cursive;
 }
 
+#fs:hover {
+	font-weight: bold;
+}
+
 .fs1 {
-	margin-left:40%;
 }
 
 .fs2 {
-	margin-left:230px;
+	margin-left:200px;
 }
 
 #pointer {
@@ -60,7 +68,16 @@ header {
 	font-family: 'Hi Melody', cursive;
 }
 
+#login:hover {
+	font-weight: bold;
+}
+
 .lm{
+	margin-left:5px;
+	margin-right: 20px;
+}
+
+.lm2{
 	margin-right: 20px;
 }
 
@@ -154,4 +171,9 @@ header {
 .aiimage{
 	width: 240px;
 	cursor: pointer;
+}
+
+.hdmenu{
+	margin-left: 370px;
+	margin-right: 200px;
 }

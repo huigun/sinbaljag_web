@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신발장</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
@@ -15,12 +15,123 @@
    	<!-- 헤더 끝 -->
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
-  	메인화면 : 미정
+  	<!-- <span>
+		<input type="radio" id="slide01">
+			<label for="slide01">
+		  		<img class="index1" th:src="@{/image/22.jpg}" width="933" height="700">
+			</label>
+		<input type="radio" id="slide02">
+			<label for="slide02">
+		  		<img class="index1" th:src="@{/image/11.jpg}" width="933" height="700">
+			</label>
+  	</span> -->
+  	
+  	<!-- -->
+  	<div id="container">
+	  <div class="slide_wrap">
+	    <div class="slide_box">
+	      <div class="slide_list clearfix">
+	        <div class="slide_content slide01">
+	          <p><img class="index1" th:src="@{/image/111.jpg}" width="933" height="700"></p>
+	      	</div>
+	      	<div class="slide_content slide02">
+	          <p><img class="index1" th:src="@{/image/222.jpg}" width="933" height="700"></p>
+	      	</div>
+	      	<div class="slide_content slide03">
+	          <p><img class="index1" th:src="@{/image/333.jpg}" width="933" height="700"></p>
+	      	</div>
+	      	<div class="slide_content slide04">
+	          <p><img class="index1" th:src="@{/image/444.jpg}" width="933" height="700"></p>
+	      	</div>
+	      	<div class="slide_content slide01">
+	          <p><img class="index1" th:src="@{/image/111.jpg}" width="933" height="700"></p>
+	      	</div>
+	    </div>
+	    <div class="dot">
+	    	<span class="dot0 dot01 dotactive" onclick="dotclick(0)"></span>
+	    	<span class="dot0 dot02" onclick="dotclick(1)"></span>
+	    	<span class="dot0 dot03" onclick="dotclick(2)"></span>
+	    	<span class="dot0 dot04" onclick="dotclick(3)"></span>
+	    </div>
+	    <ul class="slide_pagination"></ul>
+	  </div>
+	</div>
   	<!-- 컨텐츠 끝 -->
    	</div>
    	<!-- 푸터 시작 -->
-	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 	<!-- 푸터 끝 -->
 	</div>
+<script type="text/javascript">
+const slideList = document.querySelector('.slide_list');  // Slide parent dom
+const slideContents = document.querySelectorAll('.slide_content');  // each slide dom
+const slideBtnNext = document.querySelector('.slide_btn_next'); // next button
+const slideBtnPrev = document.querySelector('.slide_btn_prev'); // prev button
+const slideLen = slideContents.length;  // slide length
+const slideWidth = 933; // slide width
+const slideSpeed = 2000; // slide speed
+const startNum = 0; // initial slide index (0 ~ 4)
+ 
+slideList.style.width = slideWidth * 5 + "px";
+ 
+let curIndex = startNum; // current slide index (except copied slide)
+let curSlide = slideContents[curIndex]; // current slide dom
+curSlide.classList.add('slide_active');
+
+function logologo(){
+	if(curIndex !=3){
+		document.querySelector(".dot0"+(curIndex+2)+"").classList.toggle('dotactive');
+		document.querySelector(".dot0"+(curIndex+1)+"").classList.toggle('dotactive');
+		slideList.style.transition = slideSpeed + "ms";
+	    slideList.style.transform = "translate3d(-"+933*(curIndex+1)+"px, 0px, 0px)";
+	    curIndex=curIndex+1
+	} else if(curIndex ==3) {
+		document.querySelector(".dot01").classList.toggle('dotactive');
+		document.querySelector(".dot04").classList.toggle('dotactive');
+		slideList.style.transition = slideSpeed + "ms";
+	    slideList.style.transform = "translate3d(-"+933*(curIndex+1)+"px, 0px, 0px)";
+	    curIndex=0
+	    setTimeout(function() { 
+	    slideList.style.transition = "0ms";
+	    slideList.style.transform = "translate3d(0px, 0px, 0px)";}, 2000); 
+	    
+	     }
+	}
+function dotclick(my){
+	slideList.style.transform = "translate3d(-"+933*my+"px, 0px, 0px)";
+	for(var i=1;i<5;i++){
+		if(i==my+1){
+			if(document.querySelector(".dot0"+i+"").classList.contains('dotactive')==false){
+				document.querySelector(".dot0"+i+"").classList.toggle('dotactive');
+			} else{
+			}
+		} else{
+		document.querySelector(".dot0"+i+"").classList = "dot0 dot0"+i+"";
+		}
+	}
+	curIndex = my;
+}	
+//document.querySelector(".dot02").classList.toggle('dotactive');
+//alert(document.querySelector(".dot02").classList)
+var evtime = 3000;
+
+document.querySelector('.dot').addEventListener('click', (event) => {
+	clearInterval(auto);
+});
+
+slideList.addEventListener('mouseenter', (event) => {
+	clearInterval(auto);
+});
+
+slideList.addEventListener('mouseleave', (event) => {
+	auto = setInterval(function() {
+		logologo()
+	  }, evtime);
+});
+
+auto = setInterval(function() {
+	logologo()
+  }, evtime);
+
+</script>
 </body>
 </html>

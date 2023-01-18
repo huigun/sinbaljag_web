@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신발장</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
@@ -25,28 +25,26 @@
 			   			</span><!--
 		   			 -->
 		   			 <span th:if="${pd.pgender=='woman'}">
-		   			 	<span id="pgender2" th:text="여성용"></span>  
+		   			 	<span class="pgender21 siu" th:text="여성용"></span>  
 			   			
 		   			 </span>
 		   			 <span th:unless="${pd.pgender=='woman'}">
-		   			 	<span id="pgender2" th:text="남성용"></span>
+		   			 	<span class="pgender21 siu" th:text="남성용"></span>
 		   			 </span><!--
 			   			--><span id="pname2" th:text="${pd.pname}">
 			   			이름
 			   			</span>
-			   			<span>
-				   			<span id="pprice2" th:text="${#numbers.formatInteger(pd.pprice, 0, 'COMMA')}">
-				   			20,000
-				   			</span>
-				   			<span id="pprice1">
-				   			원
-				   			</span>
+			   			<span id="pprice2" th:text="${#numbers.formatInteger(pd.pprice, 0, 'COMMA')}">
+			   			20,000
+			   			</span>
+			   			<span id="pprice1">
+			   			원
 			   			</span>
 			   		</span>
 		   		</span>
 	   		</th:block>
 	   		<th:block th:unless="${pList2.size!=0}">
-	   			<span class="review00">등록된 상품이 없습니다.</span>
+	   			<span class="review00 siu">등록된 상품이 없습니다.</span>
 	   			<th:block th:if="${loginId=='admin'}">
 		 				<span class="additem link-secondary" th:text="물품추가" th:onclick="@{|location.href='addItem'|}">
 		 					물품추가
@@ -54,34 +52,34 @@
 	 				</th:block>
 	   		</th:block>
    		</div>
-   		<!-- 페이징 시작 -->
- 		<div id="pagesu">
+   				<!-- 페이징 시작 -->
+		  	<div id="pagesu2">
  			<div th:if="${!pList.isEmpty()}">
  				<span class="pagination justify-content-center">
- 					<span class="page-item" th:classappend="${page==0} ? 'invisible'">
-	 					<a class="page-link" th:href="@{|?page=${0}|}"><span>처음으로</span></a>
+ 					<span class="bborderr" th:classappend="${page==0} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${0}|}"><span><<</span></a>
 	 				</span>
-	 				<span class="page-item" th:classappend="${!pList.hasPrevious} ? 'disabled'">
-	 					<a class="page-link" th:href="@{|?page=${pList.number-1}|}"><span>이전</span></a>
+	 				<span class="bborderr" th:classappend="${!pList.hasPrevious} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${pList.number-1}|}"><span><</span></a>
 	 				</span>
-		   			<span class="page-item" th:each="page:${#numbers.sequence(0, pList.totalPages-1)}" 
+		   			<span class="bborderr pointer" th:each="page:${#numbers.sequence(0, pList.totalPages-1)}" 
 					th:if="${page >= pList.number-2 and page <= pList.number+2 }"
-					th:classappend="${page==pList.number} ? 'active'">
-		   				<a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
+					th:classappend="${page==pList.number} ? 'active'" >
+		   				<a class="pagebtn" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
 		   			</span>
-		   			<span class="page-item" th:classappend="${!pList.hasNext} ? 'disabled'">
-	 					<a class="page-link" th:href="@{|?page=${pList.number+1}|}"><span>다음</span></a>
+		   			<span class="bborderr" th:classappend="${!pList.hasNext} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${pList.number+1}|}"><span>></span></a>
 	 				</span>
-	 				<span class="page-item" th:classappend="${page==pList.totalPages-1} ? 'invisible'">
-	 					<a class="page-link" th:href="@{|?page=${pList.totalPages-1}|}"><span>끝으로</span></a>
+	 				<span class="bborderr" th:classappend="${page==pList.totalPages-1} ? 'invisible'">
+	 					<a class="pagebtn2" th:href="@{|?page=${pList.totalPages-1}|}"><span>>></span></a>
 	 				</span>
-	 				<th:block th:if="${loginId=='admin'}">
-		 				<span class="additem link-secondary" th:text="물품추가" th:onclick="@{|location.href='addItem'|}">
-		 					물품추가
-		 				</span>
-	 				</th:block>
 	 			</span>	
 	   		</div>
+	   		<th:block th:if="${loginId=='admin'}">
+ 				<span class="additem link-secondary" th:text="물품추가" th:onclick="@{|location.href='addItem'|}">
+ 					물품추가
+ 				</span>
+			</th:block>
 	   	</div>
 	   	<!-- 페이징 끝 -->
    	</div>

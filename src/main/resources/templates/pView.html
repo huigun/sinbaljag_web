@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신발장</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
@@ -90,24 +90,31 @@
 		  		<form th:action="@{/addBasket}" class="bdd bimage">
 		  			<input type="hidden" name="psize" id="data"/>
 		  			<input type="hidden" name="pname" th:value="${pd.pname}"/>
-		  			<input type="image" th:src="@{/image/basketb.png}" width="70" height="64">
+		  			<input type="hidden" name="pimagepath" th:value="${pd.pimagepath}"/>
+		  			<input type="image" th:src="@{/image/basketb.png}" width="44" height="44" class="imc1">
 		  		</form>
 		  		<form th:action="@{/buyItem}" class="bdd ">
 		  			<input type="hidden" name="psize" id="data2"/>
 		  			<input type="hidden" name="pname" th:value="${pd.pname}"/>
-		  			<input type="image" th:src="@{/image/buyb.png}" width="70" height="53">
+		  			<input type="hidden" name="pimagepath" th:value="${pd.pimagepath}"/>
+		  			<input type="image" th:src="@{/image/buyb.png}" width="50" height="43" class="imc2">
 		  		</form>
 			  	</th:block>
 			</span>
 		</span>
 	</div>
 	<div id="preview">
-	<span class="preview1" th:onclick="@{|location.href='/review'|}">구매 후기</span>
-	<span class="preview2" th:onclick="@{|location.href='/inquiry'|}">상품 문의</span>
-	<th:block th:if="${!loginId.equals('guest')}">
-	<span class="preview3" id="show">문의하기</span>
+	<th:block th:if="${ri==0}">
+			<span class="preview11 siu sius" th:onclick="@{|location.href='/review'|}">구매 후기</span>
+			<span class="preview2 siu sius" th:onclick="@{|location.href='/inquiry'|}">상품 문의</span>
 	</th:block>
-	<hr>
+	<th:block th:unless="${ri==0}">
+			<span class="preview1 siu sius" th:onclick="@{|location.href='/review'|}">구매 후기</span>
+			<span class="preview22 siu sius" th:onclick="@{|location.href='/inquiry'|}">상품 문의</span>
+	</th:block>
+	<th:block th:if="${!loginId.equals('guest')}">
+	<span class="preview3 siu sius" id="show">문의하기</span>
+	</th:block>
 	<div class="background">
 	  <div class="window">
 	    <div class="popup">
@@ -116,7 +123,7 @@
 		    	제품문의
 		    	</span>
 	      		<span class="inq00 inq2">
-	      		<textarea name="inquiry" class="inqta inq00" rows="3" cols="61"></textarea>
+	      		<textarea name="inquiry" class="inq00 inq001" rows="3" cols="61" placeholder = "&nbsp;문의내용"></textarea>
 	      		<input type="hidden" name="pname" th:value="${pd.pname}">
 	      		</span>
 	      		<span class="inq00 inq3">
@@ -130,13 +137,13 @@
 	
 	<div class="background2">
 	  <div class="window2">
-	    <div class="popup2">
+	    <div class="popup3">
 	    	<form th:action="@{/answerAdd}" class="inq">
 		    	<span class="inq00 inq1">
 		    	답변하기
 		    	</span>
 	      		<span class="inq00 inq2">
-	      		<textarea name="answer" class="inqta inq00" rows="3" cols="61"></textarea>
+	      		<textarea name="answer" class="inqta inq00" rows="3" cols="61" placeholder = "&nbsp;답변내용"></textarea>
 	      		<input type="hidden" name="pname" th:value="${pd.pname}">
 	      		</span>
 	      		<span class="inq00 inq3">
@@ -153,18 +160,18 @@
 		<span th:if="${reviews.size>0}">
 			<span class="review">
 				<th:block th:each="review : ${reviews}">
-					<span class="bdd0 bddid" th:text="${review.rmid}">아이디</span>
+					<span class="bdd0 bddid " th:text="${review.rmid}">아이디</span>
 					<span class="bdd0 bddr" th:text="${review.rrating}">★★★★★</span>
 					<span class="bdd0 bddd" th:text="${review.rdate}">등록일</span>
 					<th:block th:if="${review.rmid}==${loginId} or ${loginId}=='admin'">
-						<span class="bdd0 bdddx" th:text="'x'" th:onclick="@{|location.href='/reviewDel/${review.rnum}'|}"></span>
+						<span class="bdd0 bdddx" th:text="'x'" th:onclick="@{|location.href='/reviewDel/${review.rnum},${review.onum}'|}"></span>
 					</th:block>	
-					<span class="bdd0 bddc" th:text="${review.rcontent}">내용</span><hr>
+					<span class="bdd0 bddc siu" th:text="${review.rcontent}">내용</span><hr>
 				</th:block>
 			</span>
 		</span>
 		<span th:unless="${reviews.size>0}">
-			<span class="review00">등록된 후기가 없습니다.</span>
+			<span class="review siu review01">등록된 후기가 없습니다.</span>
 		</span>
 	</th:block>
 	<th:block th:if="${ri==1}">
@@ -177,7 +184,7 @@
 							<span class="bdd0 bddd" th:text="${question.qdate}">등록일</span>
 							<span class="bdd0 bdddx" th:text="'x'" th:onclick="@{|location.href='/questionDel/${question.qnum}'|}"></span>
 							<th:block th:if="${loginId}=='admin'">
-								<span th:text="${question.qnum}" class="preview4" th:id="'show'+${i.count}" th:onclick="addqnum(this)" th:value="${question.qnum}" name="bbbb">
+								<span th:text="답변하기" class="preview4" th:id="'show'+${i.count}" th:qnum='${question.qnum}' onclick="addqnum(this.getAttribute('qnum'))"  name="bbbb">
 								</span> 
 								<!--<span th:text="${question.qnum}" class="preview3" id="show2" onclick="addqnum()" th:value="${question.qnum}"></span>-->
 								<!-- 여기 -->
@@ -187,12 +194,12 @@
 							<span class="bdd0 bddid" th:text="'***'">질문자</span>
 							<span class="bdd0 bddd" th:text="${question.qdate}">등록일</span>
 						</th:block>
-						<span class="bdd0 qestion" th:text="'Q . '+${question.qcontent}">질문내용</span>
+						<span class="bdd0 qestion siu" th:text="'Q . '+${question.qcontent}">질문내용</span>
 						<th:block th:if="${question.qanswer.equals('0')}">
 							<span class="bdd0 qestion" th:text="'A . '">답변</span><hr>
 						</th:block>
 						<th:block th:unless="${question.qanswer.equals('0')}">
-							<span class="bdd0 qestion" th:text="'A . '+${question.qanswer}">답변</span>
+							<span class="bdd0 qestion siu" th:text="'A . '+${question.qanswer}">답변</span>
 							<span class="bdd0 bddd" th:text="${question.adate}">등록일</span><hr>
 						</th:block>
 					</div>
@@ -200,7 +207,7 @@
 			</span>
 		</span>
 		<span th:unless="${questions.size>0}">
-			<span class="review00">등록된 문의가 없습니다.</span>
+			<span class="review siu review01">등록된 문의가 없습니다.</span>
 		</span>
 	</th:block>
 	</div>  	
@@ -233,8 +240,7 @@
     		  document.querySelector("#show"+i).addEventListener("click", show2);
     	 }
     	 function addqnum(my) {
-    		var qnummm = my.textContent;
-      		document.getElementById("qnummm").value=qnummm;
+      		document.getElementById("qnummm").value=my;
       		}
       </script>
 </body>

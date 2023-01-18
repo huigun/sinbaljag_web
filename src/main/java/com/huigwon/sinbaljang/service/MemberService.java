@@ -38,4 +38,19 @@ public class MemberService {
 		
 		return member;
 	}
+	
+	public SMember memberUpdate(String sid, String smpw, String smname, String smaddress, String smtel) {
+		Optional<SMember> members = memberRepository.findById(sid);
+		SMember member = members.get();
+		
+		member.setSmpw(passwordEncoder.encode(smpw));
+		member.setSmname(smname);
+		member.setSmaddress(smaddress);
+		member.setSmtel(smtel);
+		
+		memberRepository.save(member);
+		
+		return member;
+		
+		}
 }

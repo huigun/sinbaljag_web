@@ -44,4 +44,7 @@ public class Review {
 	
 	@Column(name = "rcontent")
 	private String rcontent;
+	
+	@Column(name = "onum")
+	private String onum;
 }

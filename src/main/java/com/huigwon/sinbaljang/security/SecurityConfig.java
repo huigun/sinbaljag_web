@@ -18,9 +18,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity//모든 웹에 대한 요청이 스프링 시큐리티의 컨트롤 하에 있음을 알림
 @EnableMethodSecurity(prePostEnabled = true)//@PreAuthorize 애너테이션이 동작하도록 함
 public class SecurityConfig {
-
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.cors().and();
+		http.csrf().disable();
 		http.authorizeHttpRequests().requestMatchers(				
 				new AntPathRequestMatcher("/**")).permitAll()
 		.and()//h2-console 제한 해제

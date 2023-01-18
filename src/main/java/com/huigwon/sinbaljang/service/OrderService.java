@@ -72,19 +72,23 @@ public class OrderService {
 		return psize;
 	}
 	
-	public void BuyItem(String maddress, String mname, String mtel, String pname, int osize) {
+	public void BuyItem(String maddress, String mname, String mtel,String mid, String pname, int osize, String pimage, String pprice) {
 		Order order = new Order();
 		order.setOcon(1);
 		order.setOcount(1);
 		order.setOdate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		order.setOmaddress(maddress);
 		order.setOmname(mname);
+		order.setOmid(mid);
 		order.setOmtel(mtel);
 		order.setOpname(pname);
 		order.setOsize(osize);
-		
+		order.setOimage(pimage);
+		order.setOpprice(pprice);
+		order.setOrcon("0");
 		orderRepository.save(order); 
 	}
+
 
 	public void saveItem(PList plist, MultipartFile imgFile, String pname, String pgender, String pprice) throws Exception{
 		String oriImgName = imgFile.getOriginalFilename();
@@ -107,5 +111,11 @@ public class OrderService {
         plist.setPname(pname);
         plist.setPprice(Integer.parseInt(pprice));
         pListRepository.save(plist);
+	}
+	
+	public List<Order> ShowOrder(String pname) {
+		List<Order> order = orderRepository.findByOmidOrderByOdateDesc(pname);
+		
+		return order;
 	}
 }

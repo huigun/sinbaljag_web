@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>신발장</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
@@ -17,7 +17,6 @@
 	} else if(bflag==2) {
 		alert('구입 완료.');
 	}
-	
 	
     //체크박스 전체 선택 클릭 이벤트
     function allChecked(target){
@@ -162,7 +161,7 @@
     	document.getElementById('accept1').checked = false;
     	document.getElementById('accept2').checked = false;
     }
-	
+    
 </script>
 <body id="bc">
 <div id="wrap">
@@ -172,32 +171,32 @@
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
   	<!-- 장바구니 헤드 시작 -->
-  	<span id="b1">
- 			<span class="bt bt10">
+  	<span class="b1 siu">
+ 			<span class="bt bt10 siu">
   			번호
   			</span>
-  			<span class="bt bt2">
+  			<span class="bt bt2 siu">
   			선택
   			</span>
-  			<span class="bt bt3">
+  			<span class="bt bt3 siu">
   			상품명
   			</span>
-  			<span class="bt bt8">
+  			<span class="bt bt8 siu">
   			사이즈
   			</span>
-  			<span class="bt bt4">
+  			<span class="bt bt4 siu">
   			가격
   			</span>
-  			<span class="bt bt5">
+  			<span class="bt bt5 siu">
   			수량
   			</span>
-  			<span class="bt bt6">
+  			<span class="bt bt6 siu">
   			합계
   			</span>
   	</span>
   	<!-- 장바구니 헤드 끝 -->
   	<span class="sb0">
-	  	<span class="sb2">
+	  	<span class="sb2 ">
 	  	전체선택
 	  	</span>
 	  	<span class="sb3">
@@ -207,44 +206,44 @@
 <span th:if="${baskets.size>0}" id="bbc">
 	<!-- 장바구니 리스트 시작 -->
 	<th:block th:each="bk, i : ${baskets}">
-		
-			<span class="bt10 btt">
+		<span class="blist">
+			<span class="bt10 btt siu">
   				<th:block th:text="${i.count}">
   			</span>
-  			<span class="tb00 bt2 btt">
-  				<input class="ckb chk" type="checkbox" name="chk" id="chk" onclick="chkClicked()" th:value="${bk.bpprice}">
+  			<span class="tb00 bt2 btt siu">
+  				<input class="ckb chk" type="checkbox" name="chk" id="chk" onclick="chkClicked()" th:value="${bk.bpprice}" checked>
   			</span>
-  			<span class="tb00 bt3 btt">
-  			[이미지]
+  			<span class="tb00 bt3 btt pointer siu" th:onclick="@{|location.href='/pView/${bk.bpname}'|}">
+  			<img th:src="${bk.bpimage}" width="90" height="90" class="imagebg2"/>
   			<th:block th:text="${bk.bpname}"></th:block>
   			</span>
-  			<span class="tb00 bt8 btt">
+  			<span class="tb00 bt8 btt siu">
   			<th:block th:text="${bk.bpsize}"></th:block>
   			</span>
-  			<span class="tb00 bt4 btt">
+  			<span class="tb00 bt4 btt siu">
   			<th:block th:text="${#numbers.formatInteger(bk.bpprice, 0, 'COMMA')}+원"></th:block>
   			</span>
-  			<span class="tb00 bt5 btt">
+  			<span class="tb00 bt5 btt siu">
   			<th:block th:text="${bk.bcount}"></th:block>
   			</span>
-  			<span class="tb00 bt6 btt">
+  			<span class="tb00 bt6 btt siu">
   			<th:block th:text="${#numbers.formatInteger(bk.bpprice*bk.bcount, 0, 'COMMA')}+원"></th:block>
   			</span>
-  			<span th:onclick="@{|location.href='/basketDel/${bk.bnum}'|}" class="bt7 btt">
+  			<span th:onclick="@{|location.href='/basketDel/${bk.bnum}'|}" class="bt7 btt dbtn siu">
   			삭제
   			</span>
-  		<br><hr>
+  		</span>
   	</th:block>
   	</span>
   	
   	<div th:unless="${baskets.size>0}">
-  	<span class="bt00">
+  	<span class="bt00 siu">
   			등록된 상품이 없습니다.
   	</span>
   	</div>
   	<!-- 장바구니 리스트 끝 -->
-  	<form action="buy">
-  		<span class="sb">
+  	<form th:action="buypage" method="post">
+  		<span class="sb siu">
 	  	<span>선택된 금액 =</span>
 	  	<span id="psum">0</span>
 	  	</span>
@@ -253,7 +252,7 @@
 	  	</span>
 	  	<span class="sb004">
 	  	<input type="hidden" name="bindex" id="bindex">
-	  	<input type="image" th:src="@{/image/buyb.png}" width="90" height="68">
+	  	<input type="submit" value="구매하기" class="buybtn2 siu">
 	  	</span>
   	</form>
   	<!-- 컨텐츠 끝 -->
@@ -262,5 +261,9 @@
 	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 	<!-- 푸터 끝 -->
 	</div>
+	<script type="text/javascript">
+	document.getElementById('allCheckBox').checked=true;
+	allChecked();
+	</script>
 </body>
 </html>

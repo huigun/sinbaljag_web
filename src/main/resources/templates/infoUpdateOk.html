@@ -8,56 +8,58 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/content.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
 <script src="https://kit.fontawesome.com/9b1603c8f4.js" crossorigin="anonymous"></script>
-
 </head>
 <body id="bc">
 <div id="wrap">
+<script th:inline="javascript">
+var uflag = [[${uflag}]]
+	if(uflag==1) {
+		alert('업데이트 성공');
+	} else if(bflag==0) {
+		alert('업데이트 실패');
+	}
+</script>	
 	<!-- 헤더 시작 -->
 	<th:block th:replace="fragment/header :: headerFragment"></th:block>
    	<!-- 헤더 끝 -->
    	<div id="wrapc">
   	<!-- 컨텐츠 시작 -->
-  	<form th:action="@{/memberJoinOk}" method="post" th:object="${memberForm}">
-			<div>
-				<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-					<div th:each="err:${#fields.allErrors()}" th:text="${err}"></div>
-				</div>
-			</div>	
-			<div class="joinf0">	
+			<div class="infoup">
+				<span class="infoup2 siu">정보수정 완료</span>
+			</div>
+			<div class="joinf0">
 				<div>
-					<label class="form-label siu">사용자ID</label>
-					<input type="text" name="username" class="joinf1 joinf3 joinf01" th:field="*{username}">
+					<label class="form-label">사용자ID</label>
+					<input type="text" name="username" class="joinf1 joinf3" th:value="${username}" readonly>
 				</div>
 				<div class="main">
-					<label class="form-label siu">비밀번호</label>
-					<input type="password" name="password" class="joinf1 joinf3 passeye joinf02" th:field="*{password}">
+					<label class="form-label">비밀번호</label>
+					<input type="password" name="password" class="joinf1 joinf3" th:value="${upw}" readonly>
 					<i class="fa-regular fa-eye-slash pointer"></i>
+				</div>	
+				<div>
+					<label class="form-label joinf2">이 름</label>
+					<input type="text" name="name" class="joinf1 joinf3" th:value="${uname}" readonly>
 				</div>
 				<div>
-					<label class="form-label joinf2 siu">이 름</label>
-					<input type="text" name="name" class="joinf1 joinf3 joinf03" th:field="*{name}">
+					<label class="form-label joinf2">주 소</label>
+					<input type="text" name="address" class="joinf1 joinf3" th:value="${uadd}" readonly>
 				</div>
 				<div>
-					<label class="form-label joinf2 siu">주 소</label>
-					<input type="text" name="address" class="joinf1 joinf3 joinf04" th:field="*{address}">
+					<label class="form-label">전화번호</label>
+					<input type="text" name="tel" class="joinf1 joinf3" th:value="${utel}" readonly>
 				</div>
-				<div>
-					<label class="form-label siu">전화번호</label>
-					<input type="text" name="tel" class="joinf1 joinf3 joinf05" th:field="*{tel}">
-				</div>
-				<div class="joinf4">
-					<input type="submit" value="회원가입" class="ntwbtn2 siu lm2">
-					<span><a class="ntwbtn2 siu" th:href="@{/login}" th:text="취소"></a></span>
-				</div>
+				<span class="ocenter">
+					<span class="joinf4">
+						<span><a class="ntwbtn2 siu" th:href="@{/myPagehome}" th:text="확인"></a></span>
+					</span>
+				</span>
 			</div>
-		</form>	
   	<!-- 컨텐츠 끝 -->
    	</div>
    	<!-- 푸터 시작 -->
 	<th:block th:replace="fragment/footer :: footerFragment"></th:block>
 	<!-- 푸터 끝 -->
-	</div>
-	
 	<script type="text/javascript">
 	
 		document.querySelector(".main i").addEventListener("click", hi);
@@ -73,5 +75,6 @@
 		}
 	}
 </script>
+	</div>
 </body>
 </html>

@@ -53,4 +53,16 @@ public class Order {
 	
 	@Column(name = "omaddress")
 	private String omaddress;
+	
+	@Column(name = "oimage")
+	private String oimage;
+	
+	@Column(name = "opprice")
+	private String opprice;
+	
+	@Column(name = "orcon")
+	private String orcon;
+	
+	@Column(name = "omid")
+	private String omid;
 }

@@ -13,21 +13,26 @@
 	<header>
 	<!-- 로고 -->
 	<span id="logoc" th:onclick="@{|location.href='/home'|}">
-	<img id="logo" th:src="@{/image/logo.png}" width="260" height="121">
+	<!--<img id="logo" th:src="@{/image/logo.png}" width="260" height="121">-->
+	<span class="lfs">신발장</span>
 	</span>
 	<!-- 로고 -->
 	
 	<span class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id="ulc">
-			<span class="nav-link px-2 link-secondary fs1" id="fs" th:onclick="@{|location.href='/home'|}">메인 </span>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/list'|}">주문하기 </span>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/basket'|}">장바구니 </span>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/myPage'|}">마이페이지</span>
-			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/board'|}">게시판</span>
-			
-		<span><a class="nav-link px-2 link-secondary fs2" id="login" sec:authorize="isAnonymous()" th:href="@{/login}" th:text="로그인"></a></span>	
-    	<span><a class="nav-link px-2 link-secondary fs2" id="login" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃"></a></span>
+		<span class="hdmenu">
+			<span class="nav-link px-2 link-secondary fs1" id="fs" th:onclick="@{|location.href='/home'|}">MAIN </span>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/list'|}">ALL-ITEM</span>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/myPagehome'|}">MYPAGE</span>
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/notice'|}">NOTICE</span>
+		</span>	
+		<span class="hdmenu2">
+			<span class="nav-link px-2 link-secondary" id="fs" th:onclick="@{|location.href='/basket'|}">
+				<img id="basket" th:src="@{/image/basket.png}" width="36" height="36">
+			</span>	
+			<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAnonymous()" th:href="@{/login}" th:text="로그인"></a></span>	
+	    	<span><a class="nav-link px-2 link-secondary" id="login" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃"></a></span>
+		</span>
 	</span>
-	
 	</header>
 	
 </nav>

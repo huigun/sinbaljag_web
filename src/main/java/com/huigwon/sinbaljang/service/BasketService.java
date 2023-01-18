@@ -21,7 +21,7 @@ public class BasketService {
 	private final BasketRepository basketReposutory;
 	private final PListRepository pListRepository;
 	
-	public int addBasket(String pname,String buname,String pSize) {
+	public int addBasket(String pname,String buname,String pSize,String pimagepath) {
 			List<Basket> Basket = basketReposutory.findByBunameAndBpnameAndBpsize(buname, pname, pSize);
 			if(Basket.size()>0) {
 				return 1; 
@@ -32,7 +32,7 @@ public class BasketService {
 				basket.setBpnum(Integer.toString(pList.get(0).getPnum())); // 제품번호 입력
 				basket.setBpname(pList.get(0).getPname()); // 제품명 입력
 				basket.setBuname(buname); // 장바구니 주인
-				basket.setBpimage("이미지 미구현"); // 제품 이미지
+				basket.setBpimage(pimagepath); // 제품 이미지
 				basket.setBpprice(pList.get(0).getPprice()); // 제품 가격
 				basket.setBcount(1); // 추가 수량
 				basket.setBpsize(pSize);
